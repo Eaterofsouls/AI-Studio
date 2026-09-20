@@ -1,0 +1,116 @@
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cinema-engine-api
+    command: ["uvicorn", "cinema_engine.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=production
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/cinema_studio
+      - QDRANT_URL=http://qdrant:6333
+      - TEMPORAL_HOST=temporal:7233
+      - FAL_KEY=${FAL_KEY}
+      - REPLICATE_API_TOKEN=${REPLICATE_API_TOKEN}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+      - SYNCLABS_API_KEY=${SYNCLABS_API_KEY}
+    volumes:
+      - ./storage:/app/storage
+      - ./luts:/app/luts
+      - ./tools:/app/tools
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cinema-engine-worker
+    command: ["python", "-m", "cinema_engine.workflows.worker"]
+    environment:
+      - APP_ENV=production
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@postgres:5432/cinema_studio
+      - QDRANT_URL=http://qdrant:6333
+      - TEMPORAL_HOST=temporal:7233
+      - FAL_KEY=${FAL_KEY}
+      - REPLICATE_API_TOKEN=${REPLICATE_API_TOKEN}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+      - SYNCLABS_API_KEY=${SYNCLABS_API_KEY}
+    volumes:
+      - ./storage:/app/storage
+      - ./luts:/app/luts
+      - ./tools:/app/tools
+    depends_on:
+      - api
+      - temporal
+    restart: unless-stopped
+
+  temporal:
+    image: temporalio/auto-setup:1.24.0
+    container_name: cinema-engine-temporal
+    ports:
+      - "7233:7233"
+    environment:
+      - DB=postgresql
+      - DB_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PWD=postgres
+      - POSTGRES_SEEDS=postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  temporal-ui:
+    image: temporalio/ui:2.26.2
+    container_name: cinema-engine-temporal-ui
+    ports:
+      - "8233:8080"
+    environment:
+      - TEMPORAL_ADDRESS=temporal:7233
+      - TEMPORAL_CORS_ORIGINS=http://localhost:8233
+    depends_on:
+      - temporal
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: cinema-engine-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: cinema_studio
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: cinema-engine-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  qdrant_data:
