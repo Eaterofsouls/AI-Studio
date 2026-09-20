@@ -21,7 +21,7 @@ from cinema_engine.workflows.activities import (
 from cinema_engine.workflows.production import ProductionWorkflow
 
 
-TASK_QUEUE = "cinema-studio-queue"
+TASK_QUEUE = "ai-studio-queue"
 
 
 async def run_worker():
@@ -47,7 +47,7 @@ async def run_worker():
         activities=activities,
     )
 
-    print(f"Cinema Studio Engine Temporal Worker started on queue: {TASK_QUEUE}")
+    print(f"AI Studio Temporal Worker started on queue: {TASK_QUEUE}")
     await worker.run()
 
 

@@ -1,4 +1,4 @@
-<h1 align="center">🎬 AI Cinema Studio Engine</h1>
+<h1 align="center">🎬 AI Studio</h1>
 
 <p align="center">
   <strong>A Cloud-First, Production-Grade AI Video Automation System with Virtual Cinematography RAG, Multi-Provider Model Routing, and 26-Step SOP Governance.</strong>
@@ -31,9 +31,9 @@
 
 ## 📌 Executive Summary
 
-**AI Cinema Studio Engine** is a self-hosted, cloud-first video automation platform designed to turn loose AI prompts into commercial-grade video deliverables. 
+**AI Studio** is a self-hosted, cloud-first video automation platform designed to turn loose AI prompts into commercial-grade video deliverables. 
 
-Instead of relying on rigid monthly subscriptions (like Higgsfield Cinema Studio or Arcads at \$200–\$400/month) or fragile local GPU rigs that overheat and drop frames, this engine acts as an **intelligent orchestration layer**. It coordinates virtual cinematography databases, multi-provider cloud generation gateways, voice synthesis, lip-sync, React-based Remotion compositing, and mathematical 3D LUT film stock color grading into a unified, reliable pipeline.
+Instead of relying on rigid monthly subscriptions (like Higgsfield or Arcads at \$200–\$400/month) or fragile local GPU rigs that overheat and drop frames, this engine acts as an **intelligent orchestration layer**. It coordinates virtual cinematography databases, multi-provider cloud generation gateways, voice synthesis, lip-sync, React-based Remotion compositing, and mathematical 3D LUT film stock color grading into a unified, reliable pipeline.
 
 Every single step is governed by a **26-Step Standard Operating Procedure (SOP)** with **three non-skippable Human-in-the-Loop (HITL) Phase Gates** enforced by **Temporal** durable execution.
 
@@ -41,7 +41,15 @@ Every single step is governed by a **26-Step Standard Operating Procedure (SOP)*
 
 ## ⚡ Why This Exists: The 2026 AI Video Dilemma
 
-| Feature | Walled-Garden Subscriptions<br>*(Higgsfield, Arcads)* | Fragile Local GPUs<br>*(Local ComfyUI / Wan)* | **AI Cinema Studio Engine**<br>*(This Architecture)* |
+| Feature | Walled-Garden Subscriptions<br>*(Higgsfield, Arcads)* | Fragile Local GPUs<br>*(Local ComfyUI / Wan)* | **AI Studio**<br>*(This Architecture)* |
+| :--- | :--- | :--- | :--- |
+| **Pricing Model** | \$200–\$400/month platform rent | High hardware & electricity costs | **Pay only for API seconds used (\$0.10–\$0.50/s)** |
+| **Hardware Required** | Browser | High-end GPU (16GB–24GB+ VRAM) | **Zero local GPU required** (runs on modest VPS or laptop) |
+| **Cinematography Control** | Generic UI sliders | Fragile node graphs | **1,645 RAG Presets** (ARRI, Cooke, Zeiss, Lighting, Stocks) |
+| **Workflow Reliability** | Closed black box | Process crashes on out-of-memory | **Temporal Durable State Machine** (automatic retry & resumption) |
+| **Audio & Lip-Sync** | Minimal or none | Complex multi-stage manual setup | **Integrated ElevenLabs TTS & Sync Labs Lip-Sync** |
+| **Post-Production** | Download raw MP4 only | Manual video editing in Premiere | **Automated FFmpeg 21-LUT Grading + Remotion React Compositing** |
+| **Commercial Packaging** | Single format | Manual re-encoding | **Auto-exports 16:9 (YouTube), 9:16 (Shorts/Reels), 1:1 (LinkedIn)** |
 | :--- | :--- | :--- | :--- |
 | **Pricing Model** | \$200–\$400/month platform rent | High hardware & electricity costs | **Pay only for API seconds used (\$0.10–\$0.50/s)** |
 | **Hardware Required** | Browser | High-end GPU (16GB–24GB+ VRAM) | **Zero local GPU required** (runs on modest VPS or laptop) |
@@ -402,7 +410,7 @@ AI-Studio/
 
 ## 👨‍💻 Author & Credits
 
-**AI Cinema Studio Engine** was designed and engineered by:
+**AI Studio** was designed and engineered by:
 
 **Daksh Chauhan**  
 *Full-Stack Systems Architect & AI Automation Engineer*

@@ -85,7 +85,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="AI Cinema Studio Engine API",
+    title="AI Studio API",
     description="Production AI video production system with multi-provider routing and cinematic finishing.",
     version="0.3.0",
     lifespan=lifespan,
